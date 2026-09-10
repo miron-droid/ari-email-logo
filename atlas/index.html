@@ -1,0 +1,48 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Atlas — подпись для почты</title><style>
+body{margin:0;background:#f6f2eb;color:#462633;font:14px/1.6 Arial,sans-serif}main{max-width:920px;margin:45px auto;padding:0 24px}small{letter-spacing:3px;color:#a8874e}h1{font:36px/1.2 Georgia,serif;margin:10px 0}p{color:#8a7376}.card{background:white;border:1px solid #e8dece;border-radius:12px;padding:28px;overflow:auto}.fields{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0}label{font-size:11px;color:#886f70}input{box-sizing:border-box;width:100%;padding:11px;margin-top:5px;border:1px solid #d7cbbc;border-radius:4px;font:12px Arial;color:#442432;background:#fff}button{padding:14px 19px;border:1px solid #742039;border-radius:5px;background:#742039;color:#fff7e7;font:bold 12px Arial;cursor:pointer}button+button{background:transparent;color:#742039;margin-left:8px}#status{min-height:24px;font-size:12px;color:#856b44;margin-top:12px}textarea{width:100%;height:180px;box-sizing:border-box;margin-top:15px;padding:14px;border:1px solid #d7cbbc;font:11px monospace}a{color:#742039}details{margin-top:20px}#signature{width:max-content}@media(max-width:750px){.fields{grid-template-columns:1fr 1fr}main{padding:0 12px}.card{padding:12px}h1{font-size:28px}}</style></head>
+<body><main><small>ATLAS BRIDGE FREIGHT</small><h1>Маленькая история. В каждом письме.</h1><p>Готовая подпись с анимацией. Можно скопировать сразу или указать данные сотрудника.</p>
+<div class="fields"><label>Имя<input id="name" placeholder="Dispatch Team"></label><label>Должность<input id="role" placeholder="Atlas Bridge Freight"></label><label>Email<input id="email" type="email" value="atlasbridgefreight@gmail.com"></label><label>Телефон<input id="phone" value="+1 (234) 231-6444"></label></div>
+<div class="card"><div id="signature"></div></div>
+<p><button id="copy">Скопировать HTML для CargoETL</button><button id="visual">Скопировать подпись</button></p><div id="status" role="status"></div>
+<details><summary>HTML-код</summary><textarea id="code" readonly></textarea></details>
+<p style="font-size:12px">В CargoETL: Bid email signature → HTML mode → вставить → Save settings.<br><a href="signature.html" download>HTML-шаблон</a> · <a href="atlas-film.gif" download>Скачать GIF</a></p>
+<script type="text/plain" id="source"><table class="atlas-signature" role="presentation" width="680" border="0" cellspacing="0" cellpadding="0" style="width:680px;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;color:#33272b;">
+<tbody><tr>
+<td width="292" valign="middle" bgcolor="#faf7ef" style="width:292px;background-color:#faf7ef;padding:20px 0 16px;border:1px solid #e7dece;border-right:0;">
+<table role="presentation" width="292" cellspacing="0" cellpadding="0" border="0"><tbody>
+<tr><td align="center" style="font-family:Georgia,serif;font-size:24px;line-height:29px;letter-spacing:5px;color:#741f32;">ATLAS</td></tr>
+<tr><td align="center" style="padding:2px 0 8px;font-size:8px;line-height:12px;font-weight:bold;letter-spacing:2.4px;color:#9d7a42;">BRIDGE FREIGHT</td></tr>
+<tr><td align="center"><a href="https://atlasbridgefrieght.com"><img src="https://miron-droid.github.io/ari-email-logo/atlas/atlas-film.gif" width="280" height="210" alt="Atlas, a globe and a freight truck crossing a bridge" border="0" style="display:block;width:280px;height:210px;border:0;"></a></td></tr>
+</tbody></table></td>
+<td valign="middle" bgcolor="#ffffff" style="padding:25px 24px;background-color:#ffffff;border:1px solid #e7dece;border-left:0;">
+<table role="presentation" width="338" border="0" cellspacing="0" cellpadding="0" style="width:338px;border-collapse:collapse;"><tbody>
+<tr><td>
+<table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr>
+<td valign="middle" style="padding-right:12px;">
+<div style="font-size:10px;line-height:15px;color:#9a8584;">Best regards,</div>
+<div style="padding-top:4px;font-size:24px;line-height:29px;font-weight:bold;letter-spacing:-0.5px;color:#521d2b;">Dispatch Team</div>
+<div style="padding-top:6px;font-size:10px;line-height:15px;color:#9d7a42;">Atlas Bridge Freight</div>
+</td><td width="58" align="right"><img src="https://miron-droid.github.io/ari-email-logo/atlas/atlas-logo.png" width="58" height="81" alt="Atlas Bridge Freight logo" border="0" style="display:block;width:58px;height:81px;border:0;"></td>
+</tr></tbody></table>
+</td></tr>
+<tr><td style="padding:16px 0 13px;border-bottom:1px solid #e9decc;">
+<a href="tel:+12342316444" style="font-size:20px;line-height:26px;font-weight:bold;text-decoration:none;color:#521d2b;">+1 (234) 231-6444</a>
+</td></tr>
+<tr><td style="padding-top:13px;font-size:12px;line-height:19px;"><a href="mailto:atlasbridgefreight@gmail.com" style="color:#33272b;text-decoration:none;">atlasbridgefreight@gmail.com</a></td></tr>
+<tr><td style="padding-top:6px;font-size:12px;line-height:19px;"><a href="https://atlasbridgefrieght.com" style="color:#8f6635;text-decoration:none;">atlasbridgefrieght.com &nbsp; &#8599;</a></td></tr>
+</tbody></table></td>
+</tr>
+<tr><td colspan="2" bgcolor="#641f31" style="padding:13px 20px;background-color:#641f31;">
+<table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr>
+<td style="font-size:10px;line-height:16px;color:#f9edd8;"><span style="color:#dbba7b;">MC</span>&nbsp; <strong>1795618</strong><span style="color:#aa6f7b;">&nbsp;&nbsp; / &nbsp;&nbsp;</span><span style="color:#dbba7b;">USDOT</span>&nbsp; <strong>4529106</strong></td>
+<td align="right"><a href="mailto:atlasbridgefreight@gmail.com" style="font-size:11px;line-height:16px;text-decoration:none;color:#f0d399;">Contact dispatch &nbsp; &#8594;</a></td>
+</tr></tbody></table>
+</td></tr></tbody></table></script>
+<script>
+const base=document.getElementById('source').textContent;const sig=document.getElementById('signature'),code=document.getElementById('code'),status=document.getElementById('status');let html=base;
+const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function update(){const n=document.getElementById('name').value.trim(),r=document.getElementById('role').value.trim(),e=document.getElementById('email').value.trim()||'atlasbridgefreight@gmail.com',p=document.getElementById('phone').value.trim()||'+1 (234) 231-6444';html=base.replace('Dispatch Team</div>',esc(n||'Dispatch Team')+'</div>').replace('Atlas Bridge Freight</div>',esc(r||'Atlas Bridge Freight')+'</div>').replaceAll('atlasbridgefreight@gmail.com',esc(e)).replace('+1 (234) 231-6444</a>',esc(p)+'</a>').replace('tel:+12342316444','tel:'+p.replace(/[^+0-9]/g,''));sig.innerHTML=html;code.value=html;status.textContent='';}
+document.querySelectorAll('input').forEach(x=>x.addEventListener('input',update));
+document.getElementById('copy').onclick=async()=>{if(!document.getElementById('email').reportValidity())return;try{await navigator.clipboard.writeText(html);status.textContent='HTML скопирован.';}catch(e){document.querySelector('details').open=true;code.select();status.textContent=document.execCommand('copy')?'HTML скопирован.':'Нажмите Ctrl+C или ⌘C.';}};
+document.getElementById('visual').onclick=async()=>{if(!document.getElementById('email').reportValidity())return;try{await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([sig.innerText],{type:'text/plain'})})]);status.textContent='Подпись скопирована.';}catch(e){const r=document.createRange();r.selectNodeContents(sig);const s=window.getSelection();s.removeAllRanges();s.addRange(r);status.textContent=document.execCommand('copy')?'Подпись скопирована.':'Нажмите Ctrl+C или ⌘C.';}};
+update();</script></main></body></html>
