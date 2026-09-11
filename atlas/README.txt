@@ -1,22 +1,4 @@
-ATLAS BRIDGE FREIGHT — EMAIL SIGNATURE
-
-Откройте index.html или https://miron-droid.github.io/ari-email-logo/atlas/
-Можно сразу скопировать общую подпись Dispatch Team или ввести данные сотрудника.
-В CargoETL: Bid email signature → HTML mode → вставить HTML → Save settings.
-Для обычной почты используйте «Скопировать подпись».
-Поля в редакторе не сохраняются между открытиями. Персональный код доступен в разделе HTML-код.
-
-Файлы: signature.html — таблица подписи; atlas-film.gif — анимация; atlas-logo.png — официальный логотип; preview.png — статичный предпросмотр.
-GIF создана через Higgsfield / Seedance 2.5, 6 секунд, 60 кадров, 360×270 px, 607798 байт. Иллюстрированная сцена — художественная интерпретация символов бренда. Официальный логотип из вложения размещён отдельно.
-Все изображения подключены по HTTPS с GitHub Pages. Не удаляйте эти файлы, пока подписи используются в письмах.
-
-Контакты из set up's atlas.pdf:
-MC 1795618, USDOT 4529106, +1 (234) 231-6444, atlasbridgefreight@gmail.com.
-Сайт: https://atlasbridgefrieght.com — написание сохранено, домен проверен.
-Для биллинга в PDF указан ap.atlasbridge@gmail.com, для менеджера admin@atlasbridgefreight.com / 614-300-9930. Они не добавлены в общую подпись.
-EIN и служебные документы не опубликованы.
-
-Проверены отрисовка в Chromium, загрузка изображений, контакты и ссылки. Отправка в реальный почтовый клиент не выполнялась. Клиенты могут блокировать внешние картинки или показывать только первый кадр GIF.
-
-
-Фото сотрудника: откройте index.html, выберите Фото 1 / Фото 2 или вставьте прямую публичную HTTPS-ссылку на свой портрет. Укажите имя и контакты, затем скопируйте подпись. Локальные файлы автоматически не загружаются.
+Atlas email signature
+Open index.html, enter your details and choose a profile photo. Copy HTML into CargoETL > Bid email signature > HTML mode > Save settings.
+MC 1795618 | USDOT 4529106
+Custom photos require a public HTTPS image URL.
