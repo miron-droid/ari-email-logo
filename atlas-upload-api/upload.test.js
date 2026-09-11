@@ -8,8 +8,8 @@ test('validates access, image data, writes only fixed repository folder, handles
  process.env.GITHUB_UPLOAD_TOKEN='test-only';process.env.ATLAS_UPLOAD_CODE='test-code';const original=globalThis.fetch;const calls=[];
  globalThis.fetch=async(url,options)=>{calls.push({url,options});return {ok:options.method==='PUT',status:options.method==='PUT'?201:404}};
  try{
- const base={method:'POST',headers:{origin:'https://miron-droid.github.io',authorization:'Bearer test-code'}};
- let r=response();await handler({...base,headers:{...base.headers,authorization:'Bearer wrong'}},r);assert.equal(r.code,401);assert.equal(calls.length,0);
+ const base={method:'POST',headers:{origin:'https://miron-droid.github.io',}};
+ let r=response();await handler({...base,headers:{origin:'https://example.com'}},r);assert.equal(r.code,403);assert.equal(calls.length,0);
  r=response();await handler({...base,body:{image:'data:image/jpeg;base64,dGVzdA=='}},r);assert.equal(r.code,400);assert.equal(calls.length,0);
  const png=await sharp({create:{width:40,height:40,channels:3,background:'#e0ba72'}}).png().toBuffer();
  r=response();await handler({...base,body:{image:'data:image/png;base64,'+png.toString('base64'),filename:'../../index.html'}},r);assert.equal(r.code,201);assert.match(r.data.url,/\/atlas\/dispatchers\/[a-f0-9]{64}\.jpg$/);assert.equal(calls.length,2);const content=Buffer.from(JSON.parse(calls[1].options.body).content,'base64');const metadata=await sharp(content).metadata();assert.equal(metadata.width,480);assert.equal(metadata.height,640);assert.equal(metadata.format,'jpeg');

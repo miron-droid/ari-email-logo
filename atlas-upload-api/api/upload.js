@@ -1,5 +1,5 @@
 import sharp from 'sharp';
-import {createHash, timingSafeEqual} from 'node:crypto';
+import {createHash} from 'node:crypto';
 const root='https://api.github.com/repos/miron-droid/ari-email-logo/contents/atlas/dispatchers/';
 const origin='https://miron-droid.github.io';
 export default async function handler(req,res){
@@ -10,10 +10,8 @@ export default async function handler(req,res){
  if(req.headers.origin&&req.headers.origin!==origin)return fail(403,'Origin not allowed.');
  if(req.method==='OPTIONS')return res.status(204).end();
  if(req.method!=='POST')return fail(405,'Use POST.');
- const secret=process.env.ATLAS_UPLOAD_CODE,token=process.env.GITHUB_UPLOAD_TOKEN;
- if(!secret||!token)return fail(503,'Photo uploads are not configured yet. Contact your administrator.');
- const given=Buffer.from(req.headers.authorization||''),expected=Buffer.from('Bearer '+secret);
- if(given.length!==expected.length||!timingSafeEqual(given,expected))return fail(401,'Invalid upload access code.');
+ const token=process.env.GITHUB_UPLOAD_TOKEN;
+ if(!token)return fail(503,'Photo uploads are not configured yet. Contact your administrator.');
  let body;try{body=typeof req.body==='string'?JSON.parse(req.body):req.body;}catch{return fail(400,'Invalid request.');}
  if(typeof body?.image!=='string'||body.image.length>1400000||!/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(body.image))return fail(400,'Choose a JPEG, PNG or WebP photo under 1 MB.');
  let bytes;

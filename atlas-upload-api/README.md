@@ -5,7 +5,7 @@ The API saves optimized JPEG portraits in miron-droid/ari-email-logo, atlas/disp
 ## One-time configuration
 
 1. Create a fine-grained GitHub token for only `miron-droid/ari-email-logo`, Contents: read and write. Store it as the server environment variable `GITHUB_UPLOAD_TOKEN`, never in HTML or Git.
-2. Set `ATLAS_UPLOAD_CODE` to a long random shared code. Give it to authorized dispatchers. This code permits only portrait uploads, not repository management.
+2. Uploads are public and require no team code. Only optimized images can be written, in the fixed portraits folder; browser origin restrictions are not authentication.
 3. Deploy this directory to Vercel using `npx vercel --prod`. Existing Vercel login may need refreshing.
 4. In the accompanying upload-photo.js, replace `UPLOAD_ENDPOINT` with the deployed `/api/upload` URL, then embed the controls and script in the Atlas editor.
 
