@@ -8,6 +8,27 @@ uploadFile.addEventListener('change',async()=>{
   bitmap=await createImageBitmap(file);const canvas=document.createElement('canvas');canvas.width=480;canvas.height=640;const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,480,640);const scale=Math.max(480/bitmap.width,640/bitmap.height);ctx.drawImage(bitmap,(480-bitmap.width*scale)/2,(640-bitmap.height*scale)/2,bitmap.width*scale,bitmap.height*scale);
   uploadStatus.textContent='Saving photo to GitHub…';const response=await fetch(UPLOAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:canvas.toDataURL('image/jpeg',0.88)}),signal:AbortSignal.timeout(45000)});const result=await response.json();if(!response.ok)throw Error(result.error||'Upload failed.');
   uploadStatus.textContent='Photo saved. Checking public image…';let loaded=false;for(let attempt=0;attempt<8;attempt++){loaded=await new Promise(resolve=>{const img=new Image();img.onload=()=>resolve(true);img.onerror=()=>resolve(false);img.src=result.url;});if(loaded)break;await new Promise(resolve=>setTimeout(resolve,2000));}if(!loaded)throw Error('Photo saved, but not public yet. Retry in a minute; no duplicate will be created.');
-  document.getElementById('photo').value='custom';document.getElementById('photo-url').value=result.url;update();uploadStatus.textContent='Saved to GitHub. Your signature is ready to copy.';
+  document.getElementById('photo').value='custom';document.getElementById('photo-url').value=result.url;update();await loadSavedPhotos();uploadStatus.textContent='Saved to GitHub. Your signature is ready to copy.';
  }catch(error){uploadStatus.textContent=error.message||'Upload failed. Please try again.';}finally{bitmap?.close();uploadFile.disabled=false;document.getElementById('copy').disabled=false;document.getElementById('visual').disabled=false;uploadFile.value='';}
 });
+
+async function loadSavedPhotos(){
+ try{
+  const response=await fetch(UPLOAD_ENDPOINT,{cache:'no-store'});if(!response.ok)throw Error();const {photos}=await response.json();
+  const select=document.getElementById('photo'),samples=document.querySelector('.samples');
+  const currentUrl=document.getElementById('photo-url').value;const selected=select.value;
+  select.replaceChildren(new Option('No portrait',''));samples.replaceChildren();
+  photos.forEach((photo,index)=>{
+   select.add(new Option('Photo '+(index+1),photo.name));
+   const button=document.createElement('button');button.type='button';button.setAttribute('aria-label','Select photo '+(index+1));
+   const image=document.createElement('img');image.src=photo.url;image.alt='Photo '+(index+1);image.loading='lazy';button.append(image);
+   button.onclick=()=>{select.value=photo.name;update();};samples.append(button);
+  });
+  select.add(new Option('Use an image URL','custom'));
+  const matching=photos.find(p=>p.url===currentUrl||currentUrl.endsWith('/'+p.name));
+  select.value=selected==='custom'&&matching?matching.name:selected;
+  if(selected&&!select.value){select.value='custom';}
+  update();
+ }catch{uploadStatus.textContent='Saved photos could not load. Refresh the page to try again.';}
+}
+loadSavedPhotos();

@@ -16,3 +16,8 @@ test('validates access, image data, writes only fixed repository folder, handles
  calls.length=0;globalThis.fetch=async()=>({ok:true,status:200});r=response();await handler({...base,body:{image:'data:image/png;base64,'+png.toString('base64')}},r);assert.equal(r.code,200);
  }finally{globalThis.fetch=original;delete process.env.GITHUB_UPLOAD_TOKEN;delete process.env.ATLAS_UPLOAD_CODE;}
 });
+test('gallery lists only portraits with fixed public URLs',async()=>{
+ process.env.GITHUB_UPLOAD_TOKEN='test';const old=globalThis.fetch;
+ globalThis.fetch=async()=>({ok:true,json:async()=>[{type:'file',name:'photo-2.jpg'},{type:'file',name:'notes.txt'},{type:'dir',name:'photo-1.jpg'},{type:'file',name:'a'.repeat(64)+'.jpg'},{type:'file',name:'photo-1.jpg'}]});
+ try{const r=response();await handler({method:'GET',headers:{}},r);assert.equal(r.code,200);assert.equal(r.data.photos.length,3);assert.equal(r.data.photos[0].name,'photo-1.jpg');assert.equal(r.data.photos[1].name,'photo-2.jpg');assert.ok(r.data.photos.every(p=>p.url.startsWith('https://raw.githubusercontent.com/miron-droid/ari-email-logo/main/atlas/dispatchers/')));}finally{globalThis.fetch=old;delete process.env.GITHUB_UPLOAD_TOKEN;}
+});
