@@ -6,3 +6,29 @@
 @media(max-width:800px){.workspace{grid-template-columns:1fr}.settings{padding:20px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}.settings details{grid-column:1/-1}.switch-row{grid-column:1/-1}.local-note{grid-column:1/-1}.intro{padding:28px 0 24px}.intro h1{font-size:33px;letter-spacing:-1px}.brand-label{display:none}.topbar{height:76px}.preview-column{margin-top:2px}.footer{margin-top:20px}}
 @media(max-width:480px){.shell{padding:0 14px}.topbar{gap:8px}.brand img{width:88px}.nav a{font-size:10px;padding:8px 10px}.intro h1{font-size:29px}.intro p{font-size:12px}.stage{padding:8px;border-radius:10px}.mail-body{padding:19px 10px}.settings{padding:18px}.form-grid{gap:0 12px}.field-pair{gap:9px}.action-panel{padding:15px}.action-row{gap:7px}.copy-primary,.copy-rich,.download{padding:11px 12px;font-size:11px}.mail-envelope{padding:12px 14px}.footer{flex-direction:column;gap:7px}.mobile-mode{width:340px}.preview-top h2{font-size:11px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Both editors share a single page and the same editable contact details. */
+[hidden]{display:none!important}
+.intro-kicker{display:flex;align-items:center;gap:8px;margin-bottom:13px;font-size:10px;font-weight:800;letter-spacing:1.6px;color:#8a692c}
+.intro-kicker span{width:7px;height:7px;background:var(--gold);border-radius:50%;box-shadow:0 0 0 4px #c99a3d18}
+.intro-side{display:flex;flex-direction:column;align-items:flex-end;gap:8px;align-self:center}
+.kit-number{font-size:34px;font-weight:500;letter-spacing:-2px;color:#b6c3ce;line-height:1}
+.panel-divider{height:1px;background:var(--line);margin:24px 0 20px}
+.bid-help .panel-title{margin-bottom:10px}
+.bid-help .template-help{font-size:11px;margin:0 0 12px}
+.bid-help .switch-row{margin-top:0}
+.bid-help .token-badge{font-size:10px;white-space:nowrap}
+.nav a,.action-row button,.screen-control button{transition:background-color 180ms ease,color 180ms ease,border-color 180ms ease,box-shadow 180ms ease}
+.nav a:hover:not([aria-current=page]){background:#f0f4f7}
+.copy-primary:hover{background:#123d64;border-color:#123d64;box-shadow:0 3px 10px #05274914}
+.copy-rich:hover{background:#f0f5f8;border-color:#809bb2}
+.download:hover{background:#f4e8cd;border-color:#dcc48f}
+.screen-control button:hover{border-color:#8fa8bc;color:var(--ink)}
+.preview-column:focus-visible{outline:3px solid var(--gold);outline-offset:7px;border-radius:12px}
+.stage{background:linear-gradient(135deg,#e9eff4,#e2eaf1)}
+.sample-select{justify-content:flex-end;gap:9px}
+.sample-select select{min-width:170px}
+@media(min-width:801px){.settings{position:sticky;top:18px}}
+@media(max-width:1050px){.intro-side{display:none}}
+@media(max-width:480px){.intro-kicker{font-size:9px;letter-spacing:1.3px}.intro h1{font-size:28px}.preview-top{flex-wrap:wrap;gap:9px}.sample-select{justify-content:flex-start;margin-top:13px}.sample-select select{flex:1}.action-row .copy-primary{flex:1 1 180px}.action-row .copy-rich,.action-row .download{flex:1 1 125px}}
+@media(prefers-reduced-motion:reduce){.nav a,.action-row button,.screen-control button{transition:none}}

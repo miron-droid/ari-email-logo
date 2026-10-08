@@ -1,8 +1,8 @@
 # Skybridge Logistics LLC — email kit
 
-Подпись: https://miron-droid.github.io/ari-email-logo/skybridge/
+Единый конструктор подписи и bid template: https://miron-droid.github.io/ari-email-logo/skybridge/
 
-Bid template: https://miron-droid.github.io/ari-email-logo/skybridge/bid-template/
+Вкладки переключаются на одной странице, контакты общие. #bid открывает предпросмотр ставки.
 
 ## Установка подписи
 
@@ -27,4 +27,4 @@ Bid template: https://miron-droid.github.io/ari-email-logo/skybridge/bid-templat
 
 В рабочие настройки CargoETL комплект не установлен; отправка реального письма не выполнялась.
 
-Фирменные изображения подготовлены из предоставленного логотипа через Higgsfield. Исходный знак сохранён. GIF: 336×216 px, около 40 KB.
+Световой проход сгенерирован в Higgsfield через Seedance 2.5. Белый фургон отдельно анимирован по траектории золотой дороги в Higgsfield sandbox, чтобы сохранить геометрию фирменного знака. GIF: 336×216 px, 6 секунд, около 153 KB. Первый кадр показывает полный логотип. Готовые публичные изображения подписи размещены в Higgsfield CDN.

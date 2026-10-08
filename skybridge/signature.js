@@ -1,6 +1,7 @@
 (function (root) {
   'use strict';
   const base = 'https://miron-droid.github.io/ari-email-logo/skybridge/assets/';
+  const publicMedia = { animated: 'https://d2ol7oe51mr4n9.cloudfront.net/user_3IHnbxQWTEXlTMBEiE9MN8jJvnG/a7b00f59-5dbf-43e7-b530-456e1b2a2844.gif', static: 'https://d2ol7oe51mr4n9.cloudfront.net/user_3IHnbxQWTEXlTMBEiE9MN8jJvnG/48c322af-a80e-4c42-b113-3a3e4b8a3b58.png' };
   const defaults = { name: '', role: 'Dispatcher', phone: '', office: '', email: '', website: '', mc: '', dot: '', address: '', animated: true };
   const escape = value => String(value || '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
   function website(value) {
@@ -8,9 +9,9 @@
     if (!value) return '';
     try { const url = new URL(/^https?:\/\//i.test(value) ? value : 'https://' + value); return ['http:', 'https:'].includes(url.protocol) && url.hostname.includes('.') && !url.username && !url.password ? url.href : ''; } catch { return ''; }
   }
-  function build(input = {}, assetBase = base) {
+  function build(input = {}, assetBase = '') {
     const v = { ...defaults, ...input };
-    const image = assetBase + (v.animated ? 'skybridge-bridge.gif' : 'skybridge-bridge-static.png');
+    const image = assetBase ? assetBase + (v.animated ? 'skybridge-bridge.gif' : 'skybridge-bridge-static.png') : publicMedia[v.animated ? 'animated' : 'static'];
     const row = (label, text, link, prominent = false) => `<tr><td style="padding:10px 0 0;font-size:10px;line-height:15px;letter-spacing:1px;color:#657588;">${label}<br>${link ? `<a href="${escape(link)}" style="text-decoration:none;letter-spacing:0;color:#052749;font-size:${prominent ? 21 : 14}px;line-height:${prominent ? 27 : 21}px;${prominent ? 'font-weight:bold;' : ''}overflow-wrap:anywhere;word-wrap:break-word;">${escape(text)}</a>` : `<span style="font-size:14px;line-height:21px;letter-spacing:0;color:#052749;overflow-wrap:anywhere;word-wrap:break-word;">${escape(text)}</span>`}</td></tr>`;
     let contacts = '';
     const phone = String(v.phone || '').trim(), office = String(v.office || '').trim(), email = String(v.email || '').trim();
