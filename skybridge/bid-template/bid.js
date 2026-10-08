@@ -1,0 +1,27 @@
+/* Skybridge bid HTML. Keep template placeholders unchanged. ETA is a duration to pickup. */
+(function () {
+  "use strict";
+  const template = "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:100%;max-width:640px;border-collapse:separate;border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#052749;\">\n  <tr>\n    <td style=\"padding:0;border-top:4px solid #c99a3d;background-color:#052749;\">\n      <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:100%;table-layout:fixed;border-collapse:collapse;\">\n        <tr>\n          <td width=\"64%\" valign=\"middle\" style=\"width:64%;padding:23px 20px 24px 24px;\">\n            <div style=\"font-size:10px;line-height:15px;font-weight:bold;letter-spacing:1.8px;color:#e3bd70;\">OUR OFFER</div>\n            <div style=\"padding-top:7px;font-size:42px;line-height:48px;font-weight:bold;letter-spacing:-1.4px;color:#ffffff;\">${brokerPrice}</div>\n          </td>\n          <td width=\"36%\" valign=\"middle\" style=\"width:36%;padding:23px 20px 24px 18px;border-left:1px solid #31506f;\">\n            <div style=\"font-size:10px;line-height:15px;font-weight:bold;letter-spacing:1.3px;color:#b9c9d8;\">MC NUMBER</div>\n            <div style=\"padding-top:10px;font-size:18px;line-height:24px;font-weight:bold;word-wrap:break-word;color:#ffffff;\">{MCNumber}</div>\n          </td>\n        </tr>\n      </table>\n    </td>\n  </tr>\n  <tr>\n    <td style=\"padding:0;border-right:1px solid #dfe4e9;border-bottom:1px solid #dfe4e9;border-left:1px solid #dfe4e9;background-color:#ffffff;\">\n      <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:100%;table-layout:fixed;border-collapse:collapse;\">\n        <tr>\n          <td width=\"50%\" valign=\"top\" style=\"width:50%;padding:22px 18px 21px 23px;border-right:1px solid #e6eaf0;border-bottom:1px solid #e6eaf0;\">\n            <div style=\"font-size:10px;line-height:15px;font-weight:bold;letter-spacing:1.1px;color:#758292;\">TRUCK LOCATION</div>\n            <div style=\"padding-top:7px;font-size:17px;line-height:24px;font-weight:bold;word-wrap:break-word;\">{miles} <span style=\"font-size:13px;font-weight:normal;color:#687889;\">miles out</span></div>\n          </td>\n          <td width=\"50%\" valign=\"top\" style=\"width:50%;padding:22px 18px 21px 21px;border-bottom:1px solid #e6eaf0;\">\n            <div style=\"font-size:10px;line-height:15px;font-weight:bold;letter-spacing:1.1px;color:#758292;\">DIMENSIONS</div>\n            <div style=\"padding-top:7px;font-size:17px;line-height:24px;font-weight:bold;word-wrap:break-word;\">{dims} <span style=\"font-size:13px;font-weight:normal;color:#687889;\">in</span></div>\n          </td>\n        </tr>\n        <tr>\n          <td width=\"50%\" valign=\"top\" style=\"width:50%;padding:21px 18px 22px 23px;border-right:1px solid #e6eaf0;\">\n            <div style=\"font-size:10px;line-height:15px;font-weight:bold;letter-spacing:1.1px;color:#758292;\">ETA TO PICKUP</div>\n            <div style=\"padding-top:7px;font-size:17px;line-height:24px;font-weight:bold;word-wrap:break-word;\">{eta}</div>\n          </td>\n          <td width=\"50%\" valign=\"top\" style=\"width:50%;padding:21px 18px 22px 21px;\">\n            <div style=\"font-size:10px;line-height:15px;font-weight:bold;letter-spacing:1.1px;color:#758292;\">PAYLOAD</div>\n            <div style=\"padding-top:7px;font-size:17px;line-height:24px;font-weight:bold;word-wrap:break-word;\">{payload} <span style=\"font-size:13px;font-weight:normal;color:#687889;\">lbs</span></div>\n          </td>\n        </tr>\n      </table>\n    </td>\n  </tr>\n  <tr>\n    <td style=\"padding:14px 2px 20px;font-size:12px;line-height:19px;color:#758292;\">Notes: <span style=\"color:#052749;\">&nbsp;</span></td>\n  </tr>\n</table>\n[sign]\n";
+  const tokens = ["${brokerPrice}", "{MCNumber}", "{miles}", "{dims}", "{eta}", "{payload}", "[sign]"];
+  const examples = {
+    "standard": {
+      "${brokerPrice}": "$1,850",
+      "{MCNumber}": "1584726",
+      "{miles}": "18",
+      "{dims}": "144 × 52 × 64",
+      "{eta}": "2h 45m",
+      "{payload}": "3,500",
+      "[sign]": ""
+    },
+    "stress": {
+      "${brokerPrice}": "$12,500",
+      "{MCNumber}": "12345678",
+      "{miles}": "1,250",
+      "{dims}": "180 × 98 × 110",
+      "{eta}": "12h 45m",
+      "{payload}": "45,000",
+      "[sign]": ""
+    }
+  };
+  window.SkybridgeBid = { template, tokens, examples };
+})();
