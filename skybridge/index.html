@@ -9,7 +9,7 @@
   <meta property="og:description" content="Фирменная подпись и bid template в одном конструкторе">
   <meta property="og:image" content="https://miron-droid.github.io/ari-email-logo/skybridge/assets/skybridge-logo.png">
   <link rel="icon" href="assets/skybridge-bridge-static.png">
-  <link rel="stylesheet" href="kit.css?v=reveal-20261009">
+  <link rel="stylesheet" href="kit.css?v=compact-once-20261009">
 </head>
 <body>
 <div class="shell">
@@ -20,7 +20,7 @@
     </a>
     <nav class="nav" role="tablist" aria-label="Выберите шаблон">
       <a href="#signature" id="tab-signature" role="tab" aria-selected="true" aria-current="page" aria-controls="editor-panel" data-view="signature">Подпись</a>
-      <a href="#bid" id="tab-bid" role="tab" aria-selected="false" aria-controls="editor-panel" tabindex="-1" data-view="bid">Bid template</a>
+      <a href="#bid" id="tab-bid" role="tab" aria-selected="false" aria-controls="editor-panel" tabindex="-1" data-view="bid">Шаблон ставки</a>
     </nav>
   </header>
 
@@ -31,6 +31,18 @@
       <p>Ваша подпись и предложение по рейсу — в одном месте.<br>Заполните контакты, выберите шаблон и скопируйте в CargoETL.</p>
     </div>
     <div class="intro-side"><span class="kit-number">01 / 02</span><span>ONE COMPANY. EVERY EMAIL.</span></div>
+  </section>
+
+  <section class="setup-guide" aria-label="Как установить в CargoETL">
+    <div class="setup-step">
+      <span class="step-number" aria-hidden="true">1</span>
+      <div><h2>Сохраните личную подпись</h2><p>Заполните имя и контакты, затем скопируйте подпись.</p><p class="setup-path">Settings → Dispatcher Settings → Bid email signature → HTML mode → вставить → Save settings</p><button type="button" class="setup-copy" id="copy-signature">Скопировать подпись</button></div>
+    </div>
+    <div class="setup-step">
+      <span class="step-number" aria-hidden="true">2</span>
+      <div><h2>Сохраните шаблон ставки</h2><p>Скопируйте шаблон и вставьте его в отдельное поле.</p><p class="setup-path">Settings → System Settings → Bid email template → HTML mode → вставить → Save settings</p><button type="button" class="setup-copy" id="copy-bid">Скопировать шаблон ставки</button></div>
+    </div>
+    <p class="setup-status" id="setup-status" role="status" aria-live="polite"></p>
   </section>
 
   <main class="workspace">
@@ -60,7 +72,7 @@
         <div class="panel-title"><h2>Подпись в ставке</h2><span class="small-tag">[sign]</span></div>
         <p class="template-help">CargoETL добавит подпись диспетчера при отправке. Справа — ваши данные в составе письма.</p>
         <label class="switch-row"><span>Показать мою подпись</span><input id="show-signature" type="checkbox" checked></label>
-        <p class="local-note">Bid template сохраняет переменные рейса и <span class="token-badge">[sign]</span>. Подпись копируется отдельно на вкладке «Подпись».</p>
+        <p class="local-note">Данные рейса CargoETL заполнит сам. Сохраните личную подпись отдельно — как показано в шаге 1.</p>
       </div>
     </section>
 
@@ -87,24 +99,25 @@
         </article>
       </div>
       <p class="preview-note" id="preview-note">Текст письма приведён для примера. Копируется только ваша подпись.</p>
+      <button class="animation-replay" id="replay-animation" type="button">Повторить анимацию</button>
 
       <details class="animation-player" id="animation-player">
         <summary>Посмотреть анимацию в полном качестве</summary>
-        <video controls playsinline preload="none" poster="assets/skybridge-reveal-static.png" aria-label="Анимация моста и логотипа Skybridge">
-          <source src="assets/skybridge-reveal.mp4" type="video/mp4">
-          Ваш браузер не поддерживает видео. <a href="assets/skybridge-reveal.mp4" download>Скачать анимацию</a>
+        <video controls playsinline preload="none" poster="assets/skybridge-compact-static.png" aria-label="Анимация моста и логотипа Skybridge">
+          <source src="assets/skybridge-compact.mp4" type="video/mp4">
+          Ваш браузер не поддерживает видео. <a href="assets/skybridge-compact.mp4" download>Скачать анимацию</a>
         </video>
       </details>
 
       <div class="action-panel">
         <div class="action-row">
-          <button class="copy-primary" id="copy-html" type="button">Скопировать для CargoETL</button>
+          <button class="copy-primary" id="copy-html" type="button">Скопировать подпись</button>
           <button class="copy-rich" id="copy-rich" type="button">Скопировать для Gmail</button>
           <button class="download" id="download" type="button">Скачать подпись</button>
         </div>
         <div class="status" id="status" role="status" aria-live="polite"></div>
-        <p class="install" id="signature-install"><strong>CargoETL:</strong> Settings → Dispatcher Settings → Bid email signature → HTML mode → Save settings.<br><strong>Gmail:</strong> Настройки → Все настройки → Подпись.</p>
-        <p class="install" id="bid-install" hidden><strong>CargoETL:</strong> System Settings → Bid email template → HTML mode.<br>Персональную подпись сохраните отдельно в Bid email signature.</p>
+        <p class="install" id="signature-install"><strong>Куда вставить подпись:</strong><br>Settings → Dispatcher Settings → Bid email signature → HTML mode → вставить → Save settings.<br><strong>Gmail:</strong> Настройки → Все настройки → Подпись.</p>
+        <p class="install" id="bid-install" hidden><strong>Куда вставить шаблон ставки:</strong><br>Settings → System Settings → Bid email template → HTML mode → вставить → Save settings.<br>Личную подпись сохраните отдельно — шаг 1 сверху.</p>
       </div>
       <details class="source" id="source">
         <summary id="source-label">Посмотреть HTML подписи</summary>
@@ -113,10 +126,10 @@
     </section>
   </main>
 
-  <footer class="footer"><span>Skybridge Logistics LLC · Email kit</span><span><a href="#bid" id="next-view">Перейти к bid template →</a></span></footer>
+  <footer class="footer"><span>Skybridge Logistics LLC · Email kit</span><span><a href="#bid" id="next-view">Перейти к шаблону ставки →</a></span></footer>
 </div>
-<script src="signature.js?v=reveal-20261009"></script>
+<script src="signature.js?v=compact-once-20261009"></script>
 <script src="bid-template/bid.js"></script>
-<script src="kit.js"></script>
+<script src="kit.js?v=compact-once-20261009"></script>
 </body>
 </html>

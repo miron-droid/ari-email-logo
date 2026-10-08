@@ -15,6 +15,7 @@
   let data = { ...model.defaults };
   let view = form ? 'signature' : 'bid';
   let prefs = { example: 'standard', showSignature: true, width: 'desktop' };
+  let replayVersion = 0;
 
   try {
     const saved = JSON.parse(localStorage.getItem(key) || 'null');
@@ -74,12 +75,49 @@
     return html.replace('[sign]', signature);
   }
 
+  // Update the existing preview tree so typing never disconnects an unchanged GIF.
+  function patchNode(current, next) {
+    if (current.nodeType !== next.nodeType || current.nodeName !== next.nodeName) {
+      current.replaceWith(next.cloneNode(true));
+      return;
+    }
+    if (current.nodeType !== 1) {
+      if (current.nodeValue !== next.nodeValue) current.nodeValue = next.nodeValue;
+      return;
+    }
+    for (const attribute of Array.from(current.attributes)) {
+      if (!next.hasAttribute(attribute.name)) current.removeAttribute(attribute.name);
+    }
+    for (const attribute of Array.from(next.attributes)) {
+      if (current.getAttribute(attribute.name) !== attribute.value) current.setAttribute(attribute.name, attribute.value);
+    }
+    patchChildren(current, next);
+  }
+
+  function patchChildren(current, next) {
+    const desired = Array.from(next.childNodes);
+    desired.forEach((node, index) => {
+      const existing = current.childNodes[index];
+      if (existing) patchNode(existing, node);
+      else current.appendChild(node.cloneNode(true));
+    });
+    while (current.childNodes.length > desired.length) current.lastChild.remove();
+  }
+
   function render() {
-    preview.innerHTML = view === 'bid' ? bidPreview() : model.build(data, previewBase);
+    const next = document.createElement('div');
+    next.innerHTML = view === 'bid' ? bidPreview() : model.build(data, previewBase);
+    const animation = next.querySelector('img[src*=".gif"]');
+    if (animation && replayVersion) animation.setAttribute('src', animation.getAttribute('src') + '?replay=' + replayVersion);
+    patchChildren(preview, next);
+    const replay = document.getElementById('replay-animation');
+    if (replay) replay.hidden = !animation;
     code.value = exportHtml();
     const from = document.getElementById('from-label');
     if (from) from.textContent = data.name || 'Skybridge Dispatch Team';
     status.textContent = '';
+    const setupStatus = document.getElementById('setup-status');
+    if (setupStatus) setupStatus.textContent = '';
   }
 
   function setWidth(width) {
@@ -113,8 +151,8 @@
     document.getElementById('mail-chrome-label').textContent = isBid ? 'New bid' : 'New message';
     document.getElementById('subject-label').textContent = isBid ? 'Load bid' : 'Load inquiry';
     document.getElementById('preview-title').textContent = isBid ? 'Ставка с вашей подписью' : 'Так будет выглядеть подпись';
-    document.getElementById('copy-html').textContent = isBid ? 'Скопировать bid template' : 'Скопировать для CargoETL';
-    document.getElementById('download').textContent = isBid ? 'Скачать bid template' : 'Скачать подпись';
+    document.getElementById('copy-html').textContent = isBid ? 'Скопировать шаблон ставки' : 'Скопировать подпись';
+    document.getElementById('download').textContent = isBid ? 'Скачать шаблон ставки' : 'Скачать подпись';
     document.getElementById('source-label').textContent = isBid ? 'Посмотреть HTML с переменными CargoETL' : 'Посмотреть HTML подписи';
     code.setAttribute('aria-label', isBid ? 'HTML шаблона ставки' : 'HTML вашей подписи');
     document.getElementById('preview-note').textContent = isBid
@@ -122,7 +160,7 @@
       : 'Текст письма приведён для примера. Копируется только ваша подпись.';
     const nextLink = document.getElementById('next-view');
     nextLink.href = isBid ? '#signature' : '#bid';
-    nextLink.textContent = isBid ? 'Перейти к подписи →' : 'Перейти к bid template →';
+    nextLink.textContent = isBid ? 'Перейти к подписи →' : 'Перейти к шаблону ставки →';
     document.querySelector('.kit-number').textContent = isBid ? '02 / 02' : '01 / 02';
     render();
   }
@@ -196,22 +234,37 @@
     showSignature.addEventListener('change', () => { prefs.showSignature = showSignature.checked; save(); render(); });
   }
 
-  document.getElementById('copy-html').addEventListener('click', async () => {
-    if (view === 'signature' && form && !form.reportValidity()) return;
-    const copiedView = view;
+  async function copyForCargo(targetView) {
+    if (targetView === 'signature' && form && !form.reportValidity()) return;
+    if (unified && view !== targetView) {
+      setView(targetView);
+      location.hash = targetView;
+    }
+    const html = targetView === 'bid' ? bid.template : model.build(data);
     try {
-      await navigator.clipboard.writeText(exportHtml());
-      status.textContent = copiedView === 'bid'
-        ? 'Bid template скопирован. Переменные CargoETL и [sign] сохранены.'
-        : 'HTML подписи скопирован. Вставьте в CargoETL в режиме HTML.';
+      await navigator.clipboard.writeText(html);
+      status.textContent = targetView === 'bid'
+        ? 'Шаблон ставки скопирован. Вставьте в Bid email template и нажмите Save settings.'
+        : 'Подпись скопирована. Вставьте в Bid email signature и нажмите Save settings.';
     } catch { fallback(); }
+    const setupStatus = document.getElementById('setup-status');
+    if (setupStatus) setupStatus.textContent = status.textContent;
+  }
+
+  document.getElementById('copy-html').addEventListener('click', () => copyForCargo(view));
+  document.getElementById('copy-signature')?.addEventListener('click', () => copyForCargo('signature'));
+  document.getElementById('copy-bid')?.addEventListener('click', () => copyForCargo('bid'));
+  document.getElementById('replay-animation')?.addEventListener('click', () => {
+    replayVersion += 1;
+    render();
+    status.textContent = 'Анимация запущена ещё раз.';
   });
 
   document.getElementById('download').addEventListener('click', () => {
     if (view === 'signature' && form && !form.reportValidity()) return;
     download(exportHtml(), view === 'bid' ? 'skybridge-bid-template.html' : 'skybridge-signature.html');
     status.textContent = view === 'bid'
-      ? 'Скачан bid template с переменными CargoETL.'
+      ? 'Скачан шаблон ставки для CargoETL.'
       : 'Скачана подпись с вашими текущими данными.';
   });
 
@@ -231,7 +284,10 @@
         setView(tabs[index].dataset.view);
       });
     });
-    window.addEventListener('hashchange', () => setView(location.hash === '#bid' ? 'bid' : 'signature'));
+    window.addEventListener('hashchange', () => {
+      const nextView = location.hash === '#bid' ? 'bid' : 'signature';
+      if (nextView !== view) setView(nextView);
+    });
     setView(location.hash === '#bid' ? 'bid' : 'signature');
   } else render();
   setWidth(prefs.width);
