@@ -1,7 +1,7 @@
 (function (root) {
   'use strict';
   const base = 'https://miron-droid.github.io/ari-email-logo/skybridge/assets/';
-  const media = { animated: 'skybridge-assembled-once.gif', static: 'skybridge-assembled-static.png' };
+  const media = { animated: 'skybridge-studio-once.gif', static: 'skybridge-studio-static.png' };
   const defaults = { name: '', role: 'Dispatcher', phone: '', office: '+1 (267) 557-0001', email: '', trackingEmail: 'tracking@skybridgecompany.com', website: '', mc: '', dot: '', address: '4050 Skyron Dr, STE A12, Office 1, Doylestown, PA 18902', animated: true };
   const escape = value => String(value || '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
   function website(value) {
