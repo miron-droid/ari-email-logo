@@ -28,6 +28,12 @@
 .stage{background:linear-gradient(135deg,#e9eff4,#e2eaf1)}
 .sample-select{justify-content:flex-end;gap:9px}
 .sample-select select{min-width:170px}
+.animation-player{margin-top:13px;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
+.animation-player summary{cursor:pointer;padding:12px 14px;color:#52667c;font-size:11px;font-weight:600;line-height:1.6}
+.animation-player summary:hover{color:var(--ink);background:#f8fafc}
+.animation-player summary:focus-visible{outline:3px solid var(--gold);outline-offset:-3px;border-radius:9px}
+.animation-player video{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:21 / 9;object-fit:contain;background:var(--ink);border-radius:0 0 9px 9px}
+.animation-player video:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
 @media(min-width:801px){.settings{position:sticky;top:18px}}
 @media(max-width:1050px){.intro-side{display:none}}
 @media(max-width:480px){.intro-kicker{font-size:9px;letter-spacing:1.3px}.intro h1{font-size:28px}.preview-top{flex-wrap:wrap;gap:9px}.sample-select{justify-content:flex-start;margin-top:13px}.sample-select select{flex:1}.action-row .copy-primary{flex:1 1 180px}.action-row .copy-rich,.action-row .download{flex:1 1 125px}}
