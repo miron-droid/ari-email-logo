@@ -4,6 +4,8 @@
   const bid = window.SkybridgeBid;
   const key = 'skybridge-email-kit-v1';
   const prefsKey = 'skybridge-email-kit-ui-v1';
+  const companyDefaultsKey = 'skybridge-email-kit-company-contract-v1';
+  const verifiedCompanyFields = ['office', 'address', 'trackingEmail'];
   const form = document.getElementById('signature-form');
   const status = document.getElementById('status');
   const code = document.getElementById('code');
@@ -24,6 +26,14 @@
         if (typeof saved[field] === typeof data[field]) data[field] = saved[field];
       }
     } else if (matchMedia('(prefers-reduced-motion: reduce)').matches) data.animated = false;
+    // Apply the new company defaults once; existing personal or company edits win.
+    if (localStorage.getItem(companyDefaultsKey) !== '1') {
+      for (const field of verifiedCompanyFields) {
+        if (typeof data[field] === 'string' && !data[field].trim()) data[field] = model.defaults[field];
+      }
+      localStorage.setItem(key, JSON.stringify(data));
+      localStorage.setItem(companyDefaultsKey, '1');
+    }
     const savedPrefs = JSON.parse(localStorage.getItem(prefsKey) || 'null');
     if (savedPrefs && typeof savedPrefs === 'object') {
       if (['standard', 'stress', 'tokens'].includes(savedPrefs.example)) prefs.example = savedPrefs.example;
@@ -190,12 +200,12 @@
     form.addEventListener('submit', event => event.preventDefault());
     form.addEventListener('input', () => { readForm(); save(); render(); });
     document.getElementById('reset').addEventListener('click', () => {
-      data = { ...model.defaults };
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) data.animated = false;
+      const company = Object.fromEntries(['office', 'address', 'trackingEmail', 'website', 'mc', 'dot'].map(field => [field, data[field]]));
+      data = { ...model.defaults, ...company, animated: data.animated };
       fillForm();
       save();
       render();
-      status.textContent = 'Ваши данные очищены.';
+      status.textContent = 'Личные данные очищены. Контакты компании сохранены.';
     });
     document.getElementById('copy-rich').addEventListener('click', async () => {
       if (view !== 'signature' || !form.reportValidity()) return;
