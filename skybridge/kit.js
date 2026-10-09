@@ -228,7 +228,7 @@
         status.textContent = 'Подпись скопирована с оформлением. Вставьте в редактор подписи Gmail.';
       } catch {
         const copySurface = document.createElement('div');
-        copySurface.style.cssText = 'position:fixed;left:-10000px;top:0;width:640px;';
+        copySurface.style.cssText = 'position:fixed;left:-10000px;top:0;width:720px;';
         copySurface.setAttribute('aria-hidden', 'true');
         copySurface.innerHTML = model.build(data);
         document.body.appendChild(copySurface);
