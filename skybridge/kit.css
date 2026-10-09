@@ -25,6 +25,7 @@
 .download:hover{background:#f4e8cd;border-color:#dcc48f}
 .screen-control button:hover{border-color:#8fa8bc;color:var(--ink)}
 .preview-column:focus-visible{outline:3px solid var(--gold);outline-offset:7px;border-radius:12px}
+.preview-column[aria-labelledby="tab-signature"] #preview{max-width:640px}
 .stage{background:linear-gradient(135deg,#e9eff4,#e2eaf1)}
 .sample-select{justify-content:flex-end;gap:9px}
 .sample-select select{min-width:170px}

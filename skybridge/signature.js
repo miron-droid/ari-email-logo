@@ -18,35 +18,32 @@
       const content = email ? escape(text).replace('@', '@<wbr>') : escape(text);
       return link ? '<a href="' + escape(link) + '" style="text-decoration:none;' + style + '">' + content + '</a>' : '<span style="' + style + '">' + content + '</span>';
     };
-    const labelStyle = 'font-size:10px;line-height:15px;letter-spacing:0.8px;color:#8a692c;';
+    const labelStyle = 'font-size:10px;line-height:16px;letter-spacing:0.7px;font-weight:bold;color:#7d622d;';
     const textStyle = 'font-size:14px;line-height:21px;color:#052749;overflow-wrap:anywhere;word-wrap:break-word;';
-    let personal = '';
-    if (v.phone) personal += '<div style="padding-top:8px;"><div style="' + labelStyle + '">DIRECT</div>' + textLink(v.phone, 'tel:' + v.phone.replace(/[^+0-9]/g, ''), 'font-size:19px;line-height:26px;font-weight:bold;color:#052749;overflow-wrap:anywhere;word-wrap:break-word;') + '</div>';
-    if (v.office) personal += '<div style="padding-top:8px;"><div style="' + labelStyle + '">MAIN OFFICE</div>' + textLink(v.office, 'tel:' + v.office.replace(/[^+0-9]/g, ''), 'font-size:' + (v.phone ? 17 : 19) + 'px;line-height:26px;font-weight:bold;color:#052749;overflow-wrap:anywhere;word-wrap:break-word;') + '</div>';
-    if (v.email) personal += '<div style="padding-top:6px;"><div style="' + labelStyle + '">EMAIL</div>' + textLink(v.email, emailLink(v.email), textStyle, true) + '</div>';
-    if (v.trackingEmail) personal += '<div style="padding-top:6px;"><div style="' + labelStyle + '">TRACKING / POD</div>' + textLink(v.trackingEmail, emailLink(v.trackingEmail), textStyle, true) + '</div>';
+    const phoneRow = (label, value, primary) => '<div style="padding-top:8px;line-height:24px;overflow-wrap:anywhere;word-wrap:break-word;"><span style="' + labelStyle + '">' + label + '</span>&nbsp;&nbsp; ' + textLink(value, 'tel:' + value.replace(/[^+0-9]/g, ''), 'display:inline-block;max-width:100%;font-size:' + (primary ? 18 : 14) + 'px;line-height:24px;font-weight:bold;color:#052749;overflow-wrap:anywhere;word-wrap:break-word;') + '</div>';
+    let contacts = '';
+    if (v.phone) contacts += phoneRow('DIRECT', v.phone, true);
+    if (v.office) contacts += phoneRow('MAIN OFFICE', v.office, !v.phone);
+    if (v.email) contacts += '<div style="padding-top:4px;">' + textLink(v.email, emailLink(v.email), textStyle, true) + '</div>';
+    if (v.trackingEmail) contacts += '<div style="padding-top:8px;"><div style="' + labelStyle + '">TRACKING / POD</div>' + textLink(v.trackingEmail, emailLink(v.trackingEmail), textStyle, true) + '</div>';
     const url = website(v.website);
-    if (url) personal += '<div style="padding-top:6px;overflow-wrap:anywhere;word-wrap:break-word;">' + textLink(v.website.replace(/^https?:\/\//i, '').replace(/\/$/, ''), url, 'font-size:14px;line-height:21px;color:#8a692c;overflow-wrap:anywhere;word-wrap:break-word;') + '</div>';
+    if (url) contacts += '<div style="padding-top:8px;">' + textLink(v.website.replace(/^https?:\/\//i, '').replace(/\/$/, ''), url, 'font-size:14px;line-height:21px;font-weight:bold;color:#85652c;overflow-wrap:anywhere;word-wrap:break-word;') + '</div>';
+    if (v.address) contacts += '<div style="padding-top:8px;font-size:12px;line-height:18px;color:#52667c;overflow-wrap:anywhere;word-wrap:break-word;">' + escape(v.address) + '</div>';
     const credentials = [
-      v.mc && 'MC <strong style="font-weight:bold;color:#52667c;">' + escape(v.mc) + '</strong>',
-      v.dot && 'USDOT <strong style="font-weight:bold;color:#52667c;">' + escape(v.dot) + '</strong>'
-    ].filter(Boolean).join('&nbsp;&nbsp; <span style="color:#c99a3d;">&middot;</span>&nbsp;&nbsp; ');
+      v.mc && '<div><span style="color:#7d622d;">MC</span> <strong>' + escape(v.mc) + '</strong></div>',
+      v.dot && '<div><span style="color:#7d622d;">USDOT</span> <strong>' + escape(v.dot) + '</strong></div>'
+    ].filter(Boolean).join('');
 
-    return '<table role="presentation" width="720" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:720px;table-layout:fixed;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;background:#ffffff;color:#052749;">\n' +
-      '<colgroup><col width="66%" style="width:66%;"><col width="34%" style="width:34%;"></colgroup>\n' +
-      '<tr><td colspan="2" bgcolor="#ffffff" style="padding:0 0 12px;border-bottom:1px solid #dbc28c;background:#ffffff;">\n' +
-      '<div style="font-size:26px;line-height:32px;font-weight:bold;letter-spacing:-0.4px;color:#052749;overflow-wrap:anywhere;word-wrap:break-word;">Skybridge Logistics LLC</div>\n' +
-      (credentials ? '<div style="padding-top:5px;font-size:11px;line-height:18px;letter-spacing:0.4px;color:#8a692c;overflow-wrap:anywhere;word-wrap:break-word;">' + credentials + '</div>\n' : '') +
-      '</td></tr>\n' +
-      '<tr><td width="66%" valign="top" bgcolor="#ffffff" style="width:66%;padding:12px 20px 12px 0;background:#ffffff;overflow-wrap:anywhere;word-wrap:break-word;">\n' +
-      '<div style="font-size:22px;line-height:28px;font-weight:bold;color:#052749;overflow-wrap:anywhere;word-wrap:break-word;">' + escape(v.name || 'Dispatch Team') + '</div>\n' +
-      (v.name && v.role ? '<div style="padding-top:3px;font-size:13px;line-height:19px;color:#657588;overflow-wrap:anywhere;word-wrap:break-word;">' + escape(v.role) + '</div>\n' : '') +
-      personal + '\n' +
-      '</td><td width="34%" valign="middle" align="center" bgcolor="#ffffff" style="width:34%;padding:6px 0 6px 4px;background:#ffffff;line-height:0;">\n' +
-      '<img src="' + escape(image) + '" width="240" height="210" alt="Skybridge Logistics LLC" style="display:block;width:100%;max-width:240px;height:auto;border:0;">\n' +
-      '</td></tr>\n' +
-      (v.address ? '<tr><td colspan="2" bgcolor="#ffffff" style="padding:8px 0 0;border-top:1px solid #e5e9ed;background:#ffffff;overflow-wrap:anywhere;word-wrap:break-word;"><div style="font-size:13px;line-height:20px;color:#657588;overflow-wrap:anywhere;word-wrap:break-word;">' + escape(v.address) + '</div></td></tr>\n' : '') +
-      '</table>';
+    return '<table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:640px;table-layout:fixed;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;background:#ffffff;color:#052749;">\n' +
+      '<colgroup><col width="33%" style="width:33%;"><col width="67%" style="width:67%;"></colgroup>\n' +
+      '<tr><td width="33%" valign="top" align="center" bgcolor="#ffffff" style="width:33%;padding:8px 16px 0 0;background:#ffffff;line-height:0;">\n' +
+      '<img src="' + escape(image) + '" width="190" height="166" alt="Skybridge Logistics LLC" style="display:block;width:100%;max-width:190px;height:auto;border:0;">\n' +
+      '<div style="padding-top:' + (credentials ? 8 : 0) + 'px;font-size:11px;line-height:18px;letter-spacing:0.3px;color:#052749;overflow-wrap:anywhere;word-wrap:break-word;">' + credentials + '</div>\n' +
+      '</td><td width="67%" valign="top" bgcolor="#ffffff" style="width:67%;padding:0 0 0 20px;border-left:2px solid #c49a48;background:#ffffff;overflow-wrap:anywhere;word-wrap:break-word;">\n' +
+      '<div style="font-size:24px;line-height:28px;font-weight:bold;letter-spacing:-0.4px;color:#052749;overflow-wrap:anywhere;word-wrap:break-word;">Skybridge Logistics LLC</div>\n' +
+      '<div style="padding-top:12px;font-size:20px;line-height:24px;font-weight:bold;color:#052749;overflow-wrap:anywhere;word-wrap:break-word;">' + escape(v.name || 'Dispatch Team') + '</div>\n' +
+      (v.name && v.role ? '<div style="padding-top:2px;font-size:13px;line-height:18px;color:#52667c;overflow-wrap:anywhere;word-wrap:break-word;">' + escape(v.role) + '</div>\n' : '') +
+      contacts + '\n</td></tr>\n</table>';
   }
   function plain(input = {}) {
     const v = { ...defaults, ...input };
