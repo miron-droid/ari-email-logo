@@ -6,6 +6,8 @@
   const prefsKey = 'skybridge-email-kit-ui-v1';
   const companyDefaultsKey = 'skybridge-email-kit-company-contract-v1';
   const verifiedCompanyFields = ['office', 'address', 'trackingEmail'];
+  const companyIdentifiersKey = 'skybridge-email-kit-company-identifiers-v1';
+  const verifiedIdentifierFields = ['mc', 'dot', 'website'];
   const form = document.getElementById('signature-form');
   const status = document.getElementById('status');
   const code = document.getElementById('code');
@@ -33,6 +35,14 @@
       }
       localStorage.setItem(key, JSON.stringify(data));
       localStorage.setItem(companyDefaultsKey, '1');
+    }
+    // Newly confirmed identifiers have their own migration, independent of contact defaults.
+    if (localStorage.getItem(companyIdentifiersKey) !== '1') {
+      for (const field of verifiedIdentifierFields) {
+        if (typeof data[field] === 'string' && !data[field].trim()) data[field] = model.defaults[field];
+      }
+      localStorage.setItem(key, JSON.stringify(data));
+      localStorage.setItem(companyIdentifiersKey, '1');
     }
     const savedPrefs = JSON.parse(localStorage.getItem(prefsKey) || 'null');
     if (savedPrefs && typeof savedPrefs === 'object') {
@@ -76,7 +86,8 @@
     const values = bid.examples[prefs.example];
     if (values) {
       for (const token of bid.tokens) {
-        if (token !== '[sign]') html = html.split(token).join(model.escape(values[token] || token));
+        const value = token === '{MCNumber}' && prefs.example === 'standard' && data.mc ? data.mc : values[token];
+        if (token !== '[sign]') html = html.split(token).join(model.escape(value || token));
       }
     }
     const signature = prefs.showSignature
