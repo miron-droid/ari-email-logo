@@ -1,0 +1,82 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vertex Expedite | Email signature</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1ecff;color:#250034;font:15px/1.5 'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif}
+main{max-width:1060px;margin:40px auto;padding:0 20px}.eyebrow{font-size:11px;letter-spacing:3px;color:#6a3fe0;font-weight:700}
+h1{font-size:34px;line-height:1.15;margin:8px 0 6px}p{color:#6b5b80;margin:0 0 10px}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:28px;margin-top:28px}
+label{display:block;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:#6b5b80;margin:0 0 14px}
+input{display:block;width:100%;padding:11px;margin-top:5px;border:1px solid #c4b6ff;border-radius:3px;font:15px 'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif;color:#250034;background:#fff}
+input:focus-visible,button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #7c4dff;outline-offset:2px}
+.paper{background:#fff;border:1px solid #e6defa;padding:28px;overflow:auto}
+#preview{width:600px;max-width:100%}#preview.narrow{width:360px}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:18px 0 6px}
+button{padding:12px 16px;background:#250034;color:#fff;border:0;border-radius:3px;font:700 14px 'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif;cursor:pointer}
+button.secondary{background:#fff;color:#250034;border:1px solid #250034}
+select{padding:10px;border:1px solid #c4b6ff;background:#fff;color:#250034;font:14px 'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif}
+#status{min-height:24px;font-size:13px;color:#6a3fe0;margin-top:8px}
+textarea{width:100%;height:220px;margin-top:12px;padding:12px;border:1px solid #c4b6ff;font:12px/1.5 monospace;background:#fff}
+summary{cursor:pointer;font-weight:700}small{color:#6b5b80}
+@media(max-width:820px){.layout{grid-template-columns:1fr}main{margin:24px auto;padding:0 12px}.paper{padding:12px}h1{font-size:28px}}
+</style></head><body><main>
+<div class="eyebrow">VERTEX EXPEDITE LLC</div><h1>Email signature</h1>
+<p>Fill in your details, check the preview, then copy the signature into Gmail, Outlook or CargoETL. Send yourself a test email after saving.</p>
+<div class="layout"><div class="fields">
+<label>Full name<input id="name" value="" placeholder="Full name"></label>
+<label>Title<input id="position" value="Operator Manager"></label>
+<label>Direct line<input id="phone" value="+1 (202) 921-7669"></label>
+<label>Email<input id="email" type="email" value="info@vertexexpedite.us"></label>
+<label>Preview width<select id="width"><option value="wide">600 px (desktop)</option><option value="narrow">360 px (phone)</option></select></label>
+</div>
+<div><div class="paper"><div id="preview"></div></div>
+<div class="toolbar"><button id="copy">Copy signature</button><button id="html" class="secondary">Copy HTML</button><button id="download" class="secondary">Download HTML</button></div>
+<div id="status" role="status" aria-live="polite"></div>
+<details><summary>Full HTML</summary><textarea id="code" readonly aria-label="Signature HTML"></textarea></details>
+<p style="margin-top:12px"><small>Copy signature: paste into a rich-text signature editor (Gmail, Outlook, Apple Mail). Copy HTML: for editors with an HTML mode (CargoETL bid signature). MC and USDOT are fixed company numbers.</small></p>
+</div></div></main>
+<script>
+const TEMPLATE = "<!-- Vertex Expedite LLC email signature. Replace NAME, title, direct line and email before use. -->
+<table role=\"presentation\" width=\"560\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#ffffff\" style=\"width:100%;max-width:560px;border-collapse:collapse;background-color:#ffffff;font-family:'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif;color:#250034;\">
+<tr>
+<td width=\"166\" valign=\"middle\" bgcolor=\"#ffffff\" style=\"width:166px;padding:16px 8px 16px 6px;background-color:#ffffff;border-right:1px solid #e6defa;\"><a href=\"https://www.google.com/maps/search/?api=1&amp;query=4050%20Skyron%20Dr%20A12%2C%20Doylestown%2C%20PA%2018902\" style=\"text-decoration:none;\"><img src=\"https://miron-droid.github.io/ari-email-logo/vertex-expedite/vertex-expedite-logo.png\" width=\"150\" height=\"96\" alt=\"Vertex Expedite LLC\" style=\"display:block;border:0;width:100%;max-width:150px;height:auto;margin:0 auto;\"></a></td>
+<td valign=\"middle\" bgcolor=\"#ffffff\" style=\"padding:16px 12px 16px 16px;background-color:#ffffff;\">
+<div style=\"font-size:22px;line-height:26px;font-weight:700;letter-spacing:-0.2px;color:#250034;\"><span data-field=\"name\">NAME</span></div>
+<div style=\"padding:3px 0 12px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#6a3fe0;\"><span data-field=\"position\">Operator Manager</span></div>
+<div style=\"font-size:14px;line-height:20px;white-space:nowrap;\"><a data-href=\"tel\" href=\"tel:+12029217669\" style=\"color:#250034;text-decoration:none;font-weight:600;white-space:nowrap;\"><span data-field=\"phone\">+1 (202) 921-7669</span></a></div>
+<div style=\"font-size:13px;line-height:20px;\"><a data-href=\"mailto\" href=\"mailto:info@vertexexpedite.us\" style=\"color:#250034;text-decoration:none;font-weight:600;\"><span data-field=\"email\">info@vertexexpedite.us</span></a></div>
+<div style=\"padding-top:2px;font-size:12px;line-height:18px;\"><a href=\"https://www.google.com/maps/search/?api=1&amp;query=4050%20Skyron%20Dr%20A12%2C%20Doylestown%2C%20PA%2018902\" style=\"color:#6b5b80;text-decoration:none;\">4050 Skyron Dr A12, Doylestown, PA 18902</a></div>
+</td>
+</tr>
+<tr>
+<td colspan=\"2\" bgcolor=\"#250034\" style=\"padding:8px 14px 8px 14px;background-color:#250034;\">
+<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:100%;border-collapse:collapse;font-family:'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif;\">
+<tr><td style=\"font-size:11px;line-height:16px;letter-spacing:1.4px;font-weight:700;color:#a490ff;white-space:nowrap;\">MC&nbsp;<span style=\"color:#ffffff;\">1162229</span>&nbsp;&nbsp;&nbsp;USDOT&nbsp;<span style=\"color:#ffffff;\">3511155</span></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+";
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let current=TEMPLATE;
+function render(){
+  const v={name:$('name').value.trim()||'NAME',position:$('position').value.trim()||'Operator Manager',phone:$('phone').value.trim()||'+1 (202) 921-7669',email:$('email').value.trim()||'info@vertexexpedite.us'};
+  let h=TEMPLATE;
+  for(const k of Object.keys(v)) h=h.replace(new RegExp('(<span data-field="'+k+'">)[^<]*(</span>)'),'$1'+esc(v[k])+'$2');
+  const digits=v.phone.replace(/[^0-9+]/g,'');
+  const tel=digits.startsWith('+')?digits:(digits.length===10?'+1'+digits:'+'+digits);
+  h=h.replace(/href="tel:[^"]*"/,'href="tel:'+esc(tel)+'"');
+  h=h.replace(/(<a data-href="mailto" href=")mailto:[^"]*(")/,'$1mailto:'+esc(v.email)+'$2');
+  current=h;$('preview').innerHTML=h;$('code').value=h;
+}
+for(const id of ['name','position','phone','email'])$(id).addEventListener('input',render);
+$('width').onchange=()=>{$('preview').classList.toggle('narrow',$('width').value==='narrow')};
+async function copy(rich){try{
+  if(rich){await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([current],{type:'text/html'}),'text/plain':new Blob([$('preview').innerText],{type:'text/plain'})})]);}
+  else await navigator.clipboard.writeText(current);
+  $('status').textContent=rich?'Signature copied. Paste it into your email signature settings.':'HTML copied.';
+}catch(e){$('status').textContent='Clipboard unavailable. Open Full HTML below, select all and copy.';$('code').parentElement.open=true;$('code').select();}}
+$('copy').onclick=()=>copy(true);$('html').onclick=()=>copy(false);
+$('download').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([current],{type:'text/html'}));a.download='vertex-expedite-signature.html';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
+render();
+</script></body></html>
